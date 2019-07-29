@@ -1,9 +1,10 @@
 # to-do-app-frontend
 
-## OverView
-タスクの追加、完了、フィルタリング、期限の設定や認証といった機能が実装されているタスク管理アプリケーションのフロントエンドレポジトリ。
-
 ![gif](https://github.com/yotaiyo/to-do-app-frontend/blob/develop/public/gif/to-do-app.gif)
+
+## OverView
+- タスクの追加、完了、フィルタリング、締め切りの設定といった機能が実装されているタスク管理アプリケーションのフロントエンドレポジトリ。
+- [バックエンドレポジトリ](https://github.com/yotaiyo/to-do-app-backend)
 
 ## 使用した技術
 - TypeScript
@@ -17,4 +18,3 @@ yarn
 yarn test
 yarn run dev
 ```
-=> http://localhost:3000
