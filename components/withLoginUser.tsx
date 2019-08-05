@@ -1,5 +1,9 @@
 import React from 'react';
 import axios from 'axios';
+import getConfig from 'next/config';
+
+const { publicRuntimeConfig } = getConfig();
+const { API_URL } = publicRuntimeConfig;
 
 interface withLoginUserProps {}
 
@@ -27,7 +31,7 @@ export function withLoginUser(WrappedComponent: any) {
 
     getLoginUser(token: string | null) {
       axios
-        .get('http://localhost:3001/login', { params: { token } })
+        .get(`${API_URL}login`, { params: { token } })
         .then(result => {
           if (result.data) {
             this.setState({ isLogin: true });

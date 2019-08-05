@@ -6,6 +6,10 @@ import { withRouter, SingletonRouter } from 'next/router';
 import { ToastContainer, toast } from 'react-toastify';
 import { withLoginUser, withLoginUserState } from '../components/withLoginUser';
 import { withSectionAndHeader } from '../components/withSectionAndHeader';
+import getConfig from 'next/config';
+
+const { publicRuntimeConfig } = getConfig();
+const { API_URL } = publicRuntimeConfig;
 
 const Wrapper = styled.div``;
 
@@ -117,7 +121,7 @@ class LoginScreen extends React.Component<LoginProps, LoginState> {
 
   postLoginInput(emailInput: string, passwordInput: string) {
     axios
-      .post('http://localhost:3001/login', {
+      .post(`${API_URL}login`, {
         email: emailInput,
         password: passwordInput
       })

@@ -7,6 +7,10 @@ import { Footer } from '../components/Footer';
 import { withRouter, SingletonRouter } from 'next/router';
 import { ToastContainer, toast } from 'react-toastify';
 import { withSectionAndHeader } from '../components/withSectionAndHeader';
+import getConfig from 'next/config';
+
+const { publicRuntimeConfig } = getConfig();
+const { API_URL } = publicRuntimeConfig;
 
 const Wrapper = styled.div``;
 
@@ -72,7 +76,7 @@ class ToDoScreen extends React.Component<ToDoScreenProps, ToDoScreenState> {
 
   getLoginUser(token: string | null) {
     axios
-      .get('http://localhost:3001/login', { params: { token } })
+      .get(`${API_URL}login`, { params: { token } })
       .then(result => {
         if (result.data) {
           this.setState({ isLogin: true });
@@ -91,7 +95,7 @@ class ToDoScreen extends React.Component<ToDoScreenProps, ToDoScreenState> {
   getTodoList() {
     if (this.state.userId !== null) {
       axios
-        .get('http://localhost:3001/todos', {
+        .get(`${API_URL}todos`, {
           params: { user_id: this.state.userId },
           headers: {
             Authorization: `Token ${localStorage.getItem('token')}`
@@ -110,7 +114,7 @@ class ToDoScreen extends React.Component<ToDoScreenProps, ToDoScreenState> {
     const { title, completed, deadline, userId } = todo;
     axios
       .post(
-        'http://localhost:3001/todos',
+        `${API_URL}todos`,
         {
           title: title,
           completed: completed,
@@ -134,7 +138,7 @@ class ToDoScreen extends React.Component<ToDoScreenProps, ToDoScreenState> {
 
   deleteTodo(id?: number) {
     axios
-      .delete(`http://localhost:3001/todos/${id}`, {
+      .delete(`${API_URL}todos/${id}`, {
         headers: {
           Authorization: `Token ${localStorage.getItem('token')}`
         }
@@ -245,7 +249,7 @@ class ToDoScreen extends React.Component<ToDoScreenProps, ToDoScreenState> {
   }) => {
     axios
       .patch(
-        `http://localhost:3001/todos/${id}`,
+        `${API_URL}todos/${id}`,
         {
           completed: !completed,
           deadline: deadline

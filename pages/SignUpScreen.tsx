@@ -4,6 +4,10 @@ import axios from 'axios';
 import Router from 'next/router';
 import { withLoginUser, withLoginUserState } from '../components/withLoginUser';
 import { withSectionAndHeader } from '../components/withSectionAndHeader';
+import getConfig from 'next/config';
+
+const { publicRuntimeConfig } = getConfig();
+const { API_URL } = publicRuntimeConfig;
 
 const Wrapper = styled.div``;
 
@@ -101,7 +105,7 @@ class SignUpScreen extends React.Component<SignUpProps, SignUpState> {
     passwordConfirmationInput: string
   ) {
     axios
-      .post('http://localhost:3001/users', {
+      .post(`${API_URL}/users`, {
         user: {
           email: emailInput,
           name: userNameInput,
@@ -111,8 +115,10 @@ class SignUpScreen extends React.Component<SignUpProps, SignUpState> {
       })
       .then(result => {
         if (result.data.errors) {
+          console.log(result);
           this.setState({ flashList: result.data.errors });
         } else {
+          console.log(result);
           Router.push({
             pathname: '/LoginScreen',
             query: { from: 'SignUpScreen' }
@@ -163,14 +169,15 @@ class SignUpScreen extends React.Component<SignUpProps, SignUpState> {
             }
           />
           <SignUpButton
-            onClick={() =>
+            onClick={() => {
               this.postSignUpInput(
                 emailInput,
                 userNameInput,
                 passwordInput,
                 passwordConfirmationInput
-              )
-            }
+              );
+              console.log('aaaaaaaaaaaa');
+            }}
           >
             sign up
           </SignUpButton>
