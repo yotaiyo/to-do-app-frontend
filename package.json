@@ -41,7 +41,8 @@
     "build": "next build",
     "start": "next start",
     "test": "jest",
-    "tslint-check": "tslint-config-prettier-check ./tslint.json"
+    "tslint-check": "tslint-config-prettier-check ./tslint.json",
+    "export": "npm run build && next export"
   },
   "author": "",
   "license": "ISC"
